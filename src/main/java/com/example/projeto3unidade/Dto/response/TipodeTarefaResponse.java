@@ -21,8 +21,8 @@ public class TipodeTarefaResponse extends RepresentationModel<TipodeTarefaRespon
         this.nome = tipoTarefa.getNome();
 
         this.add(linkTo(TipoDeTarefaController.class).slash(tipoTarefa.getId()).withSelfRel());
-        this.add(linkTo(TipoDeTarefaController.class).slash("/editar/" + tipoTarefa.getId()).withRel("Editar o Tipo De Tarefa"));
-        this.add(linkTo(TipoDeTarefaController.class).slash("/excluir/" + tipoTarefa.getId()).withRel("Excluir o Tipo De Tarefa"));
+        this.add(linkTo(TipoDeTarefaController.class).slash( tipoTarefa.getId()).withRel("Editar o Tipo De Tarefa"));
+        this.add(linkTo(TipoDeTarefaController.class).slash( tipoTarefa.getId()).withRel("Excluir o Tipo De Tarefa"));
         this.add(linkTo(TipoDeTarefaController.class).withRel("Todos os Tipos de Tarefas"));
 
 

@@ -26,8 +26,8 @@ public class ColaboradorResponse extends RepresentationModel<ColaboradorResponse
         this.endereço = new EndereçoResponse(colab.getEndereço());
 
         this.add(linkTo(ColaboradorController.class).slash(colab.getId()).withSelfRel());
-        this.add(linkTo(ColaboradorController.class).slash("/editar/" + colab.getId()).withRel("Editar o Colaborador"));
-        this.add(linkTo(ColaboradorController.class).slash("/excluir/" + colab.getId()).withRel("Excluir o Colaborador"));
+        this.add(linkTo(ColaboradorController.class).slash( colab.getId()).withRel("Editar o Colaborador"));
+        this.add(linkTo(ColaboradorController.class).slash( colab.getId()).withRel("Excluir o Colaborador"));
         this.add(linkTo(ColaboradorController.class).withRel("Todos os Colaboradores"));
     }
 }

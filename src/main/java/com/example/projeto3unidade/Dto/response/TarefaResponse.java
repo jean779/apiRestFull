@@ -40,8 +40,8 @@ public class TarefaResponse extends RepresentationModel<TarefaResponse>{
         this.tipodaTarefa = new TipodeTarefaResponse(tarefa.getTipodaTarefa());
 
         this.add(linkTo(TarefaController.class).slash(tarefa.getId()).withSelfRel());
-        this.add(linkTo(TarefaController.class).slash("/editar/" + tarefa.getId()).withRel("Editar a Tarefa"));
-        this.add(linkTo(TarefaController.class).slash("/excluir/" + tarefa.getId()).withRel("Excluir a Tarefa"));
+        this.add(linkTo(TarefaController.class).slash( tarefa.getId()).withRel("Editar a Tarefa"));
+        this.add(linkTo(TarefaController.class).slash( tarefa.getId()).withRel("Excluir a Tarefa"));
         this.add(linkTo(TarefaController.class).withRel("Todos as Tarefas"));
 
     }

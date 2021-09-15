@@ -13,6 +13,8 @@ import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+
 @RestController
 @RequestMapping("/endereco")
 public class EndereçoController {
@@ -46,7 +48,7 @@ public class EndereçoController {
         return ResponseEntity.created(URI.create("/endereco/"+endereco.getId())).body(new EndereçoResponse(endereco));
     }
 
-    @PutMapping(path = {"/editar/{id}"})
+    @PutMapping(path = {"/{id}"})
     public ResponseEntity update(@PathVariable Long id, @RequestBody Endereço endereco){
 
         return service.getEnderecoByID(id)
@@ -60,14 +62,14 @@ public class EndereçoController {
                 }).orElse(ResponseEntity.notFound().build());
     }
 
-    @DeleteMapping(path = {"/excluir/{id}"})
+    @DeleteMapping(path = {"/{id}"})
     public ResponseEntity delete(@PathVariable Long id){
         return service.getEnderecoByID(id)
                 .map( record -> {
                     Mensagem m = new Mensagem();
                     m.setMensagem("The address has been deleted");
                     service.delete(record.getId());
-                    return ResponseEntity.ok(m);
+                    return ResponseEntity.ok(linkTo(EndereçoController.class).withRel("Todos os endereços" + m));
                 }).orElse(ResponseEntity.notFound().build());
     }
 }

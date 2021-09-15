@@ -21,8 +21,8 @@ public class EndereçoResponse extends RepresentationModel<EndereçoResponse>{
             this.nEndereco = endereco.getNEndereco();
 
             this.add(linkTo(EndereçoController.class).slash(endereco.getId()).withSelfRel());
-            this.add(linkTo(EndereçoController.class).slash("/editar/" + endereco.getId()).withRel("Editar Endereço"));
-            this.add(linkTo(EndereçoController.class).slash("/excluir/" + endereco.getId()).withRel("Excluir Endereço"));
+            this.add(linkTo(EndereçoController.class).slash(  endereco.getId()).withRel("Editar Endereço"));
+            this.add(linkTo(EndereçoController.class).slash( endereco.getId()).withRel("Excluir Endereço"));
             this.add(linkTo(EndereçoController.class).withRel("Todos os Endereços"));
         }
     }

@@ -12,6 +12,8 @@ import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+
 @RestController
 @RequestMapping("/tarefa")
 public class TarefaController {
@@ -42,7 +44,7 @@ public class TarefaController {
         return ResponseEntity.created(URI.create("/tarefa/"+tarefa.getId())).body(new TarefaResponse(tarefa));
     }
 
-    @PutMapping(path = {"/editar/{id}"})
+    @PutMapping(path = {"/{id}"})
     public ResponseEntity<?> update(@PathVariable Long id, @RequestBody Tarefa tarefa){
 
         return service.getTarefaByID(id)
@@ -56,14 +58,14 @@ public class TarefaController {
                 }).orElse(ResponseEntity.notFound().build());
     }
 
-    @DeleteMapping(path = {"/excluir/{id}"})
+    @DeleteMapping(path = {"/{id}"})
     public ResponseEntity<?> delete(@PathVariable Long id){
         return service.getTarefaByID(id)
                 .map( record -> {
                     Mensagem m = new Mensagem();
                     m.setMensagem("The task has been deleted");
                     service.delete(record.getId());
-                    return ResponseEntity.ok(m);
+                    return ResponseEntity.ok(linkTo(TarefaController.class).withRel("Todos as Tarefas" + m));
                 }).orElse(ResponseEntity.notFound().build());
     }
 }

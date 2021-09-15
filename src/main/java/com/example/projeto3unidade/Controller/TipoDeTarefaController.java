@@ -13,6 +13,8 @@ import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+
 @RestController
 @RequestMapping("/tipodetarefa")
 public class TipoDeTarefaController {
@@ -45,7 +47,7 @@ public class TipoDeTarefaController {
         return ResponseEntity.created(URI.create("/tiposdetarefa/"+tipoDeTarefa.getId())).body(new TipodeTarefaResponse(tipoDeTarefa));
     }
 
-    @PutMapping(path = {"/editar/{id}"})
+    @PutMapping(path = {"/{id}"})
     public ResponseEntity update(@PathVariable Long id, @RequestBody TipoDeTarefa tipoDeTarefa){
 
         return service.getTipoDeTarefaByID(id)
@@ -59,14 +61,14 @@ public class TipoDeTarefaController {
                 }).orElse(ResponseEntity.notFound().build());
     }
 
-    @DeleteMapping(path = {"/excluir/{id}"})
+    @DeleteMapping(path = {"/{id}"})
     public ResponseEntity<?> delete(@PathVariable Long id){
         return service.getTipoDeTarefaByID(id)
                 .map( record -> {
                     Mensagem m = new Mensagem();
                     m.setMensagem("The type of tasks has been deleted");
                     service.delete(record.getId());
-                    return ResponseEntity.ok(m);
+                    return ResponseEntity.ok(linkTo(TipoDeTarefaController.class).withRel("Todos os Tipos de Tarefas" + m));
                 }).orElse(ResponseEntity.notFound().build());
     }
 }
